@@ -13,49 +13,75 @@
 
 -- # @marksman Array of question
 
+PLAYERSCORE = 0
 
 -- #  @Siesmic logic of gaining points
-print("Answer:")
 local quizQuestions = {
     {
         question = "Is the sun hot?",
-        options = {"yes", "no", "nope"},
+        options = "yes, no, nope",
         correctAnswer = "yes"
     },
     {
         question = "What is a bomb?",
-        options = {"explosive", "toy", "glacier"},
+        options = "explosive, toy, glacier",
         correctAnswer = "explosive"
     },
+    {
+        question = "How many planets are there in the solar system?",
+        options = "6, 8, 5",
+        correctAnswer = "8"
+    },
+    {
+        question = "What year did WW2 end?",
+        options = "1940, 1948, 1945",
+        correctAnswer = "1945"
+    },
+    {
+        question = "What is the largest country in the world by land area?",
+        options = "China, Russia, United States",
+        correctAnswer = "Russia"
+    }
+
     --add more questions/answers here
     }
 
---question randomizer
-local function shuffleOptions(options)
-    local shuffled = {}
-    for i = 1, #options do
-local randIdx = math.random(1, #options)
-table.insert(shuffled, options[randIdx])
-table.remove(options, randIdx)
+
+local function checkCorrect(correctAnswer, userAnswer)
+    if userAnswer == correctAnswer then
+        return true
+    else
+        return false
     end
-    return shuffled
+
 end
+
 
 -- visualise random question 
 local function presentRandomQuestion()
     local randomIdx = math.random(1, #quizQuestions)
     local questionData = quizQuestions[randomIdx]
+    print(questionData.question)
+    print(string.format("Options: %s", questionData.options))
+    table.remove(quizQuestions, randomIdx)
+    return questionData.correctAnswer
+end
 
-    --answer order shuffler
-    local shuffledOptions = shuffleOptions(questionData.options)
+local function updatePlayerScore(isCorrect)
+    if isCorrect then
+        PLAYERSCORE = PLAYERSCORE + 100
+        print("Correct! \n")
+    else print("Incorrect answer. \n")
+    end
+end     
     
 
-    --monday left me broken
-    --tuesday i was through with hoping
-    --wednesday my empty arms were open
-    --thursday waiting for love, waiting for love
-     
-
---print the questions and answers
-print()
+while #quizQuestions > 0 do
+    local correctAnswer = presentRandomQuestion()
+    io.write("Your answer (enter the answer): ")
+    local PlayerAnswer = io.read()
+    updatePlayerScore(checkCorrect(correctAnswer, PlayerAnswer))  
 end
+print(string.format("Your score is: %d", PLAYERSCORE))
+print("The end.")
+
