@@ -1,5 +1,3 @@
-print("hello")
-
 -- # Project Name - Basic Lua quiz
 
 
@@ -7,7 +5,6 @@ print("hello")
 
 -- # a quiz game where you're prompted with a random question
 -- # from an array and you get points for getting right answer 
--- #  and lose points for wrong answer
 
 
 -- # Questions Array
@@ -59,7 +56,6 @@ local function presentRandomQuestion()
     --thursday waiting for love, waiting for love
      
 
-print(question)
-local answer = io.read()
-print(answer + "is the correct answer!") -- is this good? bro idk -marksman
+--print the questions and answers
+print()
 end
